@@ -1,0 +1,43 @@
+@page "/attendance"
+
+@inject UserSessionService Session
+
+<PageTitle>Attendance | EventEase</PageTitle>
+
+<h1>Attendance Tracker</h1>
+
+@if (!Session.IsRegistered)
+{
+    <div class="message">
+        <p>You need to register before recording attendance.</p>
+
+        <a class="button" href="/register">
+            Register
+        </a>
+    </div>
+}
+else
+{
+    <div class="attendance-card">
+
+        <h2>Welcome, @Session.UserName</h2>
+
+        <p>
+            Events attended:
+            <strong>@Session.EventsAttended</strong>
+        </p>
+
+        <button class="button"
+                @onclick="RecordAttendance">
+            Mark Attendance
+        </button>
+
+    </div>
+}
+
+@code {
+    private void RecordAttendance()
+    {
+        Session.MarkAttendance();
+    }
+}

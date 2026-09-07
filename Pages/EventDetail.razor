@@ -1,0 +1,82 @@
+@page "/events/{Id:int}"
+
+<PageTitle>Event Details | EventEase</PageTitle>
+
+@if (currentEvent is null)
+{
+    <div class="message error">
+        <h1>Event Not Found</h1>
+        <p>The requested event could not be found.</p>
+
+        <a href="/events" class="button">
+            Return to Events
+        </a>
+    </div>
+}
+else
+{
+    <section class="details">
+        <h1>@currentEvent.Name</h1>
+
+        <p>
+            <strong>Date:</strong>
+            @currentEvent.Date.ToString("dd MMMM yyyy")
+        </p>
+
+        <p>
+            <strong>Location:</strong>
+            @currentEvent.Location
+        </p>
+
+        <p>@currentEvent.Description</p>
+
+        <a class="button" href="/register">
+            Register Now
+        </a>
+    </section>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private EventModel? currentEvent;
+
+    protected override void OnParametersSet()
+    {
+        currentEvent = Id switch
+        {
+            1 => new EventModel
+            {
+                Id = 1,
+                Name = "Tech Innovation Conference",
+                Date = new DateTime(2026, 10, 15),
+                Location = "Bengaluru, India",
+                Description =
+                    "Explore emerging technologies and innovative ideas."
+            },
+
+            2 => new EventModel
+            {
+                Id = 2,
+                Name = "Corporate Leadership Summit",
+                Date = new DateTime(2026, 11, 5),
+                Location = "Mumbai, India",
+                Description =
+                    "Connect with professionals and leadership experts."
+            },
+
+            3 => new EventModel
+            {
+                Id = 3,
+                Name = "Developer Meetup",
+                Date = new DateTime(2026, 12, 10),
+                Location = "Hyderabad, India",
+                Description =
+                    "Meet developers and discuss modern web technologies."
+            },
+
+            _ => null
+        };
+    }
+}

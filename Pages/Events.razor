@@ -1,0 +1,54 @@
+@page "/events"
+
+<PageTitle>Events | EventEase</PageTitle>
+
+<h1>Upcoming Events</h1>
+
+<p>Explore our upcoming events and select one to learn more.</p>
+
+<div class="event-grid">
+
+    @foreach (var item in events)
+    {
+        <EventCard @key="item.Id" Event="item" />
+    }
+
+</div>
+
+@code {
+    private readonly List<EventModel> events =
+    [
+        new()
+        {
+            Id = 1,
+            Name = "Tech Innovation Conference",
+            Date = new DateTime(2026, 10, 15),
+            Location = "Bengaluru, India",
+            Description =
+                "Explore emerging technologies and innovative ideas.",
+            Attendees = 120
+        },
+
+        new()
+        {
+            Id = 2,
+            Name = "Corporate Leadership Summit",
+            Date = new DateTime(2026, 11, 5),
+            Location = "Mumbai, India",
+            Description =
+                "Connect with professionals and leadership experts.",
+            Attendees = 85
+        },
+
+        new()
+        {
+            Id = 3,
+            Name = "Developer Meetup",
+            Date = new DateTime(2026, 12, 10),
+            Location = "Hyderabad, India",
+            Description =
+                "Meet developers and discuss modern web technologies.",
+            Attendees = 65
+        }
+    ];
+}

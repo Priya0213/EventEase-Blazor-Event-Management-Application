@@ -1,0 +1,79 @@
+@page "/register"
+
+@inject UserSessionService Session
+
+<PageTitle>Registration | EventEase</PageTitle>
+
+<h1>Event Registration</h1>
+
+<p>Complete the form below to register for an event.</p>
+
+<EditForm Model="@registration"
+          OnValidSubmit="@HandleRegistration">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="name">Name</label>
+
+        <InputText id="name"
+                   class="form-control"
+                   @bind-Value="registration.Name" />
+
+        <ValidationMessage For="@(() => registration.Name)" />
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+
+        <InputText id="email"
+                   class="form-control"
+                   @bind-Value="registration.Email" />
+
+        <ValidationMessage For="@(() => registration.Email)" />
+    </div>
+
+    <div class="form-group">
+        <label for="event">Event</label>
+
+        <InputSelect id="event"
+                     class="form-control"
+                     @bind-Value="registration.EventName">
+
+            <option value="">Select an event</option>
+            <option>Tech Innovation Conference</option>
+            <option>Corporate Leadership Summit</option>
+            <option>Developer Meetup</option>
+
+        </InputSelect>
+
+        <ValidationMessage For="@(() => registration.EventName)" />
+    </div>
+
+    <button type="submit" class="button">
+        Register
+    </button>
+</EditForm>
+
+@if (registrationComplete)
+{
+    <div class="message success">
+        Registration successful! Welcome, @registration.Name.
+    </div>
+}
+
+@code {
+    private RegistrationModel registration = new();
+
+    private bool registrationComplete;
+
+    private void HandleRegistration()
+    {
+        Session.Register(
+            registration.Name,
+            registration.Email);
+
+        registrationComplete = true;
+    }
+}
