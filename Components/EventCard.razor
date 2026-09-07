@@ -1,0 +1,30 @@
+<div class="event-card">
+    <h2>@Event.Name</h2>
+
+    <p>
+        <strong>Date:</strong>
+        @Event.Date.ToString("dd MMMM yyyy")
+    </p>
+
+    <p>
+        <strong>Location:</strong>
+        @Event.Location
+    </p>
+
+    <p>@Event.Description</p>
+
+    <p>
+        <strong>Attendees:</strong>
+        @Event.Attendees
+    </p>
+
+    <a class="button"
+       href="@($"/events/{Event.Id}")">
+        View Details
+    </a>
+</div>
+
+@code {
+    [Parameter]
+    public EventModel Event { get; set; } = new();
+}
